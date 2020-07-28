@@ -12,9 +12,13 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
+        doScan(Test.class, "/Users/lsq/Desktop/scan/");
+    }
+
+    public static void doScan(Class<?> baseClass, String baseDir) {
         try {
             Map<Class<?>, Map<String, String>> result = new HashMap<>();
-            doScan(Test.class, result, null);
+            doScan(baseClass, result, null);
             for (Map.Entry<Class<?>, Map<String, String>> classListEntry : result.entrySet()) {
                 String name = classListEntry.getKey().getSimpleName();
                 System.out.println(name);
@@ -24,7 +28,7 @@ public class Main {
                     System.out.println(line);
                     lines.add(line);
                 }
-                FileUtils.writeLines(new File("/Users/lsq/Desktop/scan/" + name + ".csv"), lines);
+                FileUtils.writeLines(new File(baseDir + name + ".csv"), lines);
             }
         } catch (Throwable e) {
             e.printStackTrace();
